@@ -1,6 +1,6 @@
-package servicechain
+package trafficredirect
 
 // GroupName is the group name used in this package
 const (
-	GroupName = "servicechain.everoute.io"
+	GroupName = "tr.everoute.io"
 )

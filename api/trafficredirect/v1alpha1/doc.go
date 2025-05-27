@@ -1,5 +1,5 @@
 // +k8s:openapi-gen=true
 // +k8s:deepcopy-gen=package
-// +groupName=servicechain.everoute.io
+// +groupName=tr.everoute.io
 
 package v1alpha1

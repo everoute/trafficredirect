@@ -1,0 +1,51 @@
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: everoute-tr-validate
+webhooks:
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      # CaBundle must set as the ca for secret everoute-controller-tls.
+      caBundle: {{ .Values.webhook.caBundle }}
+      url: https://127.0.0.1:{{ .Values.webhook.port }}/validate-tr-everoute-io-v1alpha1-rule
+    failurePolicy: Fail
+    name: rule.tr.io
+    rules:
+      - apiGroups:
+          - tr.everoute.io
+        apiVersions:
+          - v1alpha1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - rules
+    sideEffects: None
+
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: everoute-tr-mutate
+webhooks:
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      # CaBundle must set as the ca for secret everoute-controller-tls.
+      caBundle: {{ .Values.webhook.caBundle }}
+      url: https://127.0.0.1:{{ .Values.webhook.port }}/mutate-tr-everoute-io-v1alpha1-rule
+    failurePolicy: Fail
+    name: rule.tr.io
+    rules:
+      - apiGroups:
+          - tr.everoute.io
+        apiVersions:
+          - v1alpha1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - rules
+    sideEffects: None
