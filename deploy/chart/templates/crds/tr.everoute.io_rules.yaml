@@ -6,16 +6,16 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.6.2
   creationTimestamp: null
-  name: trafficredirectrules.servicechain.everoute.io
+  name: rules.tr.everoute.io
 spec:
-  group: servicechain.everoute.io
+  group: tr.everoute.io
   names:
-    kind: TrafficRedirectRule
-    listKind: TrafficRedirectRuleList
-    plural: trafficredirectrules
+    kind: Rule
+    listKind: RuleList
+    plural: rules
     shortNames:
     - trr
-    singular: trafficredirectrule
+    singular: rule
   scope: Namespaced
   versions:
   - additionalPrinterColumns:
@@ -48,7 +48,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: Specification of the desired behavior for this TrafficRedirect.
+            description: Specification of the desired behavior for this Rule.
             properties:
               egress:
                 type: boolean
