@@ -30,8 +30,8 @@ func (r *Rule) ValidateUpdate(runtime.Object) (admission.Warnings, error) {
 func (r *Rule) ValidateDelete() (admission.Warnings, error) { return nil, nil }
 
 func (r *Rule) validateSpec() error {
-	if !r.Spec.Egress && !r.Spec.Ingress {
-		return fmt.Errorf("must set ingress or egress")
+	if r.Spec.Direct != Egress && r.Spec.Direct != Ingress {
+		return fmt.Errorf("direct must set ingress or egress")
 	}
 	if r.Spec.Match.DstMac == "" && r.Spec.Match.SrcMac == "" {
 		return fmt.Errorf("must set rule match")
