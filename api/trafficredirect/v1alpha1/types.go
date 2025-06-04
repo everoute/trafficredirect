@@ -24,9 +24,9 @@ type Rule struct {
 }
 
 type RuleSpec struct {
-	Match   RuleMatch `json:"match"`
-	Egress  bool      `json:"egress,omitempty"`
-	Ingress bool      `json:"ingress,omitempty"`
+	Match RuleMatch `json:"match"`
+	// +kubebuilder:validation:Enum=ingress;egress
+	Direct RuleDirect `json:"direct"`
 	// tower info for debug
 	TowerOption *TowerOption `json:"towerOption,omitempty"`
 }
@@ -48,3 +48,10 @@ type RuleList struct {
 	metav1.ListMeta `json:"metadata,omitempty"`
 	Items           []Rule `json:"items"`
 }
+
+type RuleDirect string
+
+const (
+	Egress  RuleDirect = "egress"
+	Ingress RuleDirect = "ingress"
+)

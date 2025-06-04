@@ -14,8 +14,10 @@ func TestRule_validateSpec(t *testing.T) {
 		errorText string
 	}{
 		{
-			name:      "missing ingress and egress",
-			rule:      Rule{Spec: RuleSpec{}},
+			name: "direct is invalid",
+			rule: Rule{Spec: RuleSpec{
+				Direct: "test",
+			}},
 			wantErr:   true,
 			errorText: "must set ingress or egress",
 		},
@@ -23,7 +25,7 @@ func TestRule_validateSpec(t *testing.T) {
 			name: "missing rule match",
 			rule: Rule{
 				Spec: RuleSpec{
-					Ingress: true,
+					Direct: Ingress,
 				},
 			},
 			wantErr:   true,
@@ -33,8 +35,8 @@ func TestRule_validateSpec(t *testing.T) {
 			name: "invalid dst mac",
 			rule: Rule{
 				Spec: RuleSpec{
-					Ingress: true,
-					Match:   RuleMatch{DstMac: "invalid"},
+					Direct: Ingress,
+					Match:  RuleMatch{DstMac: "invalid"},
 				},
 			},
 			wantErr:   true,
@@ -44,8 +46,8 @@ func TestRule_validateSpec(t *testing.T) {
 			name: "invalid src mac",
 			rule: Rule{
 				Spec: RuleSpec{
-					Ingress: true,
-					Match:   RuleMatch{SrcMac: "zz:zz", DstMac: "12:13:13:13:13:5a"},
+					Direct: Ingress,
+					Match:  RuleMatch{SrcMac: "zz:zz", DstMac: "12:13:13:13:13:5a"},
 				},
 			},
 			wantErr:   true,
@@ -55,7 +57,7 @@ func TestRule_validateSpec(t *testing.T) {
 			name: "incomplete tower option",
 			rule: Rule{
 				Spec: RuleSpec{
-					Egress: true,
+					Direct: Egress,
 					Match:  RuleMatch{DstMac: "00:11:22:33:44:55"},
 					TowerOption: &TowerOption{
 						VMID: "vm1", // Nic is missing
@@ -69,8 +71,8 @@ func TestRule_validateSpec(t *testing.T) {
 			name: "valid rule with dst mac",
 			rule: Rule{
 				Spec: RuleSpec{
-					Ingress: true,
-					Match:   RuleMatch{DstMac: "00:11:22:33:44:55"},
+					Direct: Ingress,
+					Match:  RuleMatch{DstMac: "00:11:22:33:44:55"},
 				},
 			},
 			wantErr: false,
@@ -79,29 +81,29 @@ func TestRule_validateSpec(t *testing.T) {
 			name: "invalid dst mac with -",
 			rule: Rule{
 				Spec: RuleSpec{
-					Ingress: true,
-					Match:   RuleMatch{DstMac: "00-11-22-33-44-55"},
+					Direct: Ingress,
+					Match:  RuleMatch{DstMac: "00-11-22-33-44-55"},
 				},
 			},
-			wantErr: true,
+			wantErr:   true,
 			errorText: "mac 00-11-22-33-44-55 is invalid",
 		},
 		{
 			name: "invalid dst mac with A-F",
 			rule: Rule{
 				Spec: RuleSpec{
-					Ingress: true,
-					Match:   RuleMatch{DstMac: "00:F5:22:33:44:55"},
+					Direct: Ingress,
+					Match:  RuleMatch{DstMac: "00:F5:22:33:44:55"},
 				},
 			},
-			wantErr: true,
+			wantErr:   true,
 			errorText: "mac 00:F5:22:33:44:55 is invalid",
 		},
 		{
 			name: "valid rule with src mac and tower option",
 			rule: Rule{
 				Spec: RuleSpec{
-					Egress: true,
+					Direct: Egress,
 					Match:  RuleMatch{SrcMac: "aa:bb:cc:dd:ee:ff"},
 					TowerOption: &TowerOption{
 						VMID: "vm2",

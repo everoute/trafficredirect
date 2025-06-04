@@ -50,10 +50,11 @@ spec:
           spec:
             description: Specification of the desired behavior for this Rule.
             properties:
-              egress:
-                type: boolean
-              ingress:
-                type: boolean
+              direct:
+                enum:
+                - ingress
+                - egress
+                type: string
               match:
                 properties:
                   dstMac:
@@ -70,6 +71,7 @@ spec:
                     type: string
                 type: object
             required:
+            - direct
             - match
             type: object
         required:
