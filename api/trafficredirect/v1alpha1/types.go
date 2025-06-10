@@ -10,6 +10,7 @@ import (
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:path=rules,shortName=trr
+// +kubebuilder:printcolumn:name="direct",type="string",JSONPath=".spec.direct"
 // +kubebuilder:printcolumn:name="src-mac",type="string",JSONPath=".spec.match.srcMac"
 // +kubebuilder:printcolumn:name="dst-mac",type="string",JSONPath=".spec.match.dstMac"
 // +kubebuilder:printcolumn:name="vm",type="string",JSONPath=".spec.towerOption.vmID"

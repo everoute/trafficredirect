@@ -19,6 +19,9 @@ spec:
   scope: Namespaced
   versions:
   - additionalPrinterColumns:
+    - jsonPath: .spec.direct
+      name: direct
+      type: string
     - jsonPath: .spec.match.srcMac
       name: src-mac
       type: string
