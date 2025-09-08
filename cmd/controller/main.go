@@ -14,6 +14,8 @@ import (
 	"github.com/everoute/trafficredirect/api/trafficredirect/v1alpha1"
 	"github.com/everoute/trafficredirect/pkg/config"
 	"github.com/everoute/trafficredirect/pkg/constants"
+	"github.com/everoute/trafficredirect/pkg/controller/vnic"
+	"github.com/everoute/trafficredirect/pkg/tower/informer"
 )
 
 var Scheme = runtime.NewScheme()
@@ -52,9 +54,17 @@ func main() {
 	if err := mgr.AddHealthzCheck("ping", healthz.Ping); err != nil {
 		klog.Fatalf("Failed to add healthz ping checker")
 	}
-
 	if err := (&v1alpha1.Rule{}).SetupWebhookWithManager(mgr); err != nil {
 		klog.Fatalf("unable to registry webhook for rule: %s", err)
+	}
+
+	towerFac := informer.NewSharedInformerFactory()
+	vnicCtrl := vnic.NewController(mgr, towerFac)
+	if err := mgr.Add(towerFac); err != nil {
+		klog.Fatalf("Failed to add tower factory to mgr: %s", err)
+	}
+	if err := mgr.Add(vnicCtrl); err != nil {
+		klog.Fatalf("Failed to add vnic ctrl to mgr: %s", err)
 	}
 
 	klog.Info("Start controller manager")

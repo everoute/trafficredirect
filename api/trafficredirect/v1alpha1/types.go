@@ -13,8 +13,7 @@ import (
 // +kubebuilder:printcolumn:name="direct",type="string",JSONPath=".spec.direct"
 // +kubebuilder:printcolumn:name="src-mac",type="string",JSONPath=".spec.match.srcMac"
 // +kubebuilder:printcolumn:name="dst-mac",type="string",JSONPath=".spec.match.dstMac"
-// +kubebuilder:printcolumn:name="vm",type="string",JSONPath=".spec.towerOption.vmID"
-// +kubebuilder:printcolumn:name="vnic",type="string",JSONPath=".spec.towerOption.nic"
+// +kubebuilder:printcolumn:name="vm",type="string",JSONPath=".spec.option.towerVM"
 
 type Rule struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -29,7 +28,7 @@ type RuleSpec struct {
 	// +kubebuilder:validation:Enum=ingress;egress
 	Direct RuleDirect `json:"direct"`
 	// tower info for debug
-	TowerOption *TowerOption `json:"towerOption,omitempty"`
+	Option *Option `json:"option,omitempty"`
 }
 
 type RuleMatch struct {
@@ -37,9 +36,8 @@ type RuleMatch struct {
 	DstMac string `json:"dstMac,omitempty"`
 }
 
-type TowerOption struct {
-	VMID string `json:"vmID,omitempty"`
-	Nic  string `json:"nic,omitempty"`
+type Option struct {
+	TowerVM string `json:"towerVM,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

@@ -25,6 +25,10 @@ test:
 
 docker-test:
 	$(eval WORKDIR := /go/src/github.com/everoute/trafficredirect)
-	docker run --rm -iu 0:0 -w $(WORKDIR) -v $(CURDIR):$(WORKDIR) golang:1.20 make test
+	docker run --rm -iu 0:0 -w $(WORKDIR) -v $(CURDIR):$(WORKDIR) registry.smtx.io/sdn-base/golang:1.20 make test
+
+debug-test:
+	$(eval WORKDIR := /go/src/github.com/everoute/trafficredirect)
+	docker run --rm -iu 0:0 -w $(WORKDIR) -v $(CURDIR):$(WORKDIR) registry.smtx.io/sdn-base/golang:1.20 bash
 
 publish:
