@@ -1,9 +1,11 @@
 .PHONY: image-generate generate docker-generate test docker-test publish
 
+COMMIT_ID:=$(shell git rev-parse --short HEAD)
+
 CONTROLLER_GEN=$(shell which controller-gen)
 
 image:
-	docker build -f build/image/release/Dockerfile -t registry.smtx.io/everoute/tr-controller . --build-arg RELEASE_VERSION="v0.0.0" --build-arg GIT_COMMIT="local" --build-arg PRODUCT_NAME="everoute"
+	docker build -f build/image/release/Dockerfile -t registry.smtx.io/everoute/tr-controller:$(COMMIT_ID) . --build-arg RELEASE_VERSION="v0.0.0" --build-arg GIT_COMMIT="local" --build-arg PRODUCT_NAME="everoute"
 
 image-generate:
 	docker build -f build/image/generate/Dockerfile -t tr/generate ./build/image/generate/
@@ -21,10 +23,14 @@ docker-generate: image-generate
 	docker run --rm -iu 0:0 -w $(WORKDIR) -v $(CURDIR):$(WORKDIR) tr/generate make generate
 
 test:
-	go test ./... --race --coverprofile coverage.out
+	go test ./... -gcflags=all=-l --race --coverprofile coverage.out
 
 docker-test:
 	$(eval WORKDIR := /go/src/github.com/everoute/trafficredirect)
-	docker run --rm -iu 0:0 -w $(WORKDIR) -v $(CURDIR):$(WORKDIR) golang:1.20 make test
+	docker run --rm -iu 0:0 -w $(WORKDIR) -v $(CURDIR):$(WORKDIR) registry.smtx.io/sdn-base/golang:1.20 make test
+
+debug-test:
+	$(eval WORKDIR := /go/src/github.com/everoute/trafficredirect)
+	docker run --rm -iu 0:0 -w $(WORKDIR) -v $(CURDIR):$(WORKDIR) registry.smtx.io/sdn-base/golang:1.20 bash
 
 publish:

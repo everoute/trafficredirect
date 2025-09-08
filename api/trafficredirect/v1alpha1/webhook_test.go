@@ -59,13 +59,13 @@ func TestRule_validateSpec(t *testing.T) {
 				Spec: RuleSpec{
 					Direct: Egress,
 					Match:  RuleMatch{DstMac: "00:11:22:33:44:55"},
-					TowerOption: &TowerOption{
-						VMID: "vm1", // Nic is missing
+					Option: &Option{
+						TowerVM: "",
 					},
 				},
 			},
 			wantErr:   true,
-			errorText: "must set tower option with vmid and nic",
+			errorText: "must set option with tower vmid when option is set",
 		},
 		{
 			name: "valid rule with dst mac",
@@ -105,9 +105,8 @@ func TestRule_validateSpec(t *testing.T) {
 				Spec: RuleSpec{
 					Direct: Egress,
 					Match:  RuleMatch{SrcMac: "aa:bb:cc:dd:ee:ff"},
-					TowerOption: &TowerOption{
-						VMID: "vm2",
-						Nic:  "eth0",
+					Option: &Option{
+						TowerVM: "vm2",
 					},
 				},
 			},

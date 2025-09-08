@@ -28,11 +28,8 @@ spec:
     - jsonPath: .spec.match.dstMac
       name: dst-mac
       type: string
-    - jsonPath: .spec.towerOption.vmID
+    - jsonPath: .spec.option.towerVM
       name: vm
-      type: string
-    - jsonPath: .spec.towerOption.nic
-      name: vnic
       type: string
     name: v1alpha1
     schema:
@@ -65,12 +62,10 @@ spec:
                   srcMac:
                     type: string
                 type: object
-              towerOption:
+              option:
                 description: tower info for debug
                 properties:
-                  nic:
-                    type: string
-                  vmID:
+                  towerVM:
                     type: string
                 type: object
             required:
