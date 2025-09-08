@@ -49,9 +49,9 @@ func (r *Rule) validateSpec() error {
 		}
 	}
 
-	if r.Spec.TowerOption != nil {
-		if r.Spec.TowerOption.VMID == "" || r.Spec.TowerOption.Nic == "" {
-			return fmt.Errorf("must set tower option with vmid and nic")
+	if r.Spec.Option != nil {
+		if r.Spec.Option.TowerVM == "" {
+			return fmt.Errorf("must set option with tower vmid when option is set")
 		}
 	}
 	return nil

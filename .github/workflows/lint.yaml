@@ -5,7 +5,7 @@ on:
 
 jobs:
   golint:
-    runs-on: self-hosted
+    runs-on: [self-hosted, pod]
     steps:
       - uses: actions/checkout@v3
 
@@ -16,7 +16,7 @@ jobs:
 
       - uses: actions/setup-go@v4
         with:
-          go-version: '1.23'
+          go-version: '1.20'
 
       - name: Check golang lint
         # skip it for branch main can't pass this check
@@ -30,7 +30,7 @@ jobs:
           GOPROXY: https://goproxy.cn|https://proxy.golang.org|direct
 
   generate-check:
-    runs-on: self-hosted
+    runs-on: [self-hosted, pod]
     steps:
       - uses: actions/checkout@v3
 
@@ -49,7 +49,7 @@ jobs:
         run: echo "::error::Please run \"make generate\" or \"make docker-generate\" before commit."
 
   commitlint:
-    runs-on: self-hosted
+    runs-on: [self-hosted, pod]
     steps:
       - uses: actions/checkout@v3
         with:
@@ -59,7 +59,7 @@ jobs:
           configFile: .commitlintrc.json
 
   helmlint:
-    runs-on: self-hosted
+    runs-on: [self-hosted, pod]
     steps:
       - uses: actions/checkout@v3
       - uses: andstor/file-existence-action@v2
