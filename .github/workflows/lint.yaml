@@ -1,5 +1,7 @@
 name: lint
 on:
+  push:
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
@@ -8,26 +10,30 @@ jobs:
     runs-on: [self-hosted, pod]
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - uses: andstor/file-existence-action@v2
         id: check_files
         with:
           files: "go.mod"
 
-      - uses: actions/setup-go@v4
-        with:
-          go-version: '1.20'
+      - name: setup go with docker
+        run: |
+          docker run --rm -v /usr/local:/sys_usr_local registry.smtx.io/sdn-base/golang:1.20 cp -r /usr/local/go /sys_usr_local/
+          echo "PATH=${PATH}:/usr/local/go/bin" >> $GITHUB_ENV
 
-      - name: Check golang lint
-        # skip it for branch main can't pass this check
-        if: ${{ github.event_name == 'pull_request' }}
-        uses: qingwusunny/golangci-lint-action@v1.0.0
+      - name: setup golangci-lint from oci image
+        run: |
+          sudo docker run --rm -v /usr/local:/sys_usr_local registry.smtx.io/everoute/golangci-lint:1.62.2 cp -r /golangci-lint /sys_usr_local/bin/
+
+      - uses: everoute/golangci-lint-action@v5
         with:
-          version: v1.60.1
+          install-mode: none
+          skip-cache: true
           only-new-issues: true
         env:
-          GOGC: 1
-          GOPROXY: https://goproxy.cn|https://proxy.golang.org|direct
+          GOPROXY: http://goproxy.smartx.com|https://goproxy.cn|direct
 
   generate-check:
     runs-on: [self-hosted, pod]
