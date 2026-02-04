@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/agiledragon/gomonkey/v2 v2.13.0
-	github.com/everoute/graphc v0.0.0-20260123100539-f9f030c4c036
+	github.com/everoute/graphc v0.0.0-20260204064853-6fc3d0a771ab
 	github.com/go-logr/logr v1.4.1
 	github.com/onsi/ginkgo/v2 v2.15.0
 	github.com/onsi/gomega v1.32.0

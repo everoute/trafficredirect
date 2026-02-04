@@ -24,8 +24,8 @@ github.com/emicklei/go-restful/v3 v3.11.0/go.mod h1:6n3XBCmQQb25CM2LCACGz8ukIrRr
 github.com/evanphx/json-patch v4.12.0+incompatible h1:4onqiflcdA9EOZ4RxV643DvftH5pOlLGNtQ5lPWQu84=
 github.com/evanphx/json-patch/v5 v5.7.0 h1:nJqP7uwL84RJInrohHfW0Fx3awjbm8qZeFv0nW9SYGc=
 github.com/evanphx/json-patch/v5 v5.7.0/go.mod h1:VNkHZ/282BpEyt/tObQO8s5CMPmYYq14uClGH4abBuQ=
-github.com/everoute/graphc v0.0.0-20260123100539-f9f030c4c036 h1:Hyn7ELWxq334dAB4Q24sy6p+Ykbh3+7JOHQbFbKePWk=
-github.com/everoute/graphc v0.0.0-20260123100539-f9f030c4c036/go.mod h1:y5jORYpx3Ac/s/d+0JxXR4dBsl4PgCd5T8iZCZyBpBA=
+github.com/everoute/graphc v0.0.0-20260204064853-6fc3d0a771ab h1:7gx6sovKwIufx8eKFipLDcig0e9qV4jHmFpmIcoZo/8=
+github.com/everoute/graphc v0.0.0-20260204064853-6fc3d0a771ab/go.mod h1:y5jORYpx3Ac/s/d+0JxXR4dBsl4PgCd5T8iZCZyBpBA=
 github.com/fsnotify/fsnotify v1.4.7/go.mod h1:jwhsz4b93w/PPRr/qN1Yymfu8t87LnFCMoQvtojpjFo=
 github.com/fsnotify/fsnotify v1.4.9/go.mod h1:znqG4EE+3YCdAaPaxE2ZRY/06pZUdp0tY4IgpuI1SZQ=
 github.com/fsnotify/fsnotify v1.6.0 h1:n+5WquG0fcWoWp6xPWfHdbskMCQaFnG6PfBrh1Ky4HY=
