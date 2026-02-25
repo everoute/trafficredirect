@@ -107,6 +107,8 @@ func (c *Controller) Start(stopCtx context.Context) error {
 
 func (c *Controller) crcHandler(e *models.ResourceChangeEvent) {
 	log := ctrl.Log.WithName("crcwatch")
+	log.V(6).Info("Received crc event", "event", e)
+	defer log.V(6).Info("Finished handling crc event", "event", e)
 	if e == nil {
 		log.Info("crc event is nil, skip")
 		return
