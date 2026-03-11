@@ -21,14 +21,16 @@ type T struct {
 }
 
 type TowerOpts struct {
-	AllowInsecure bool
-	Addr          string
-	Username      string
-	Password      string
-	Source        string
-	APIUsername   string
-	APIPassword   string
-	CrcInterval   time.Duration
+	AllowInsecure      bool
+	Addr               string
+	Username           string
+	Password           string
+	Source             string
+	APIUsername        string
+	APIPassword        string
+	CrcInterval        time.Duration
+	CrcCatchUpInterval time.Duration
+	CrcLimit           int
 }
 
 func InitFlags(flagset *flag.FlagSet) {
@@ -51,4 +53,6 @@ func InitFlags(flagset *flag.FlagSet) {
 	flagset.StringVar(&Config.Tower.APIUsername, "tower-api-username", os.Getenv("TOWER_API_USERNAME"), "tower username for api")
 	flagset.StringVar(&Config.Tower.APIPassword, "tower-api-password", os.Getenv("TOWER_API_PASSWORD"), "tower password for api")
 	flagset.DurationVar(&Config.Tower.CrcInterval, "tower-crc-interval", 10*time.Second, "tower resource change event watch polling interval")
+	flagset.DurationVar(&Config.Tower.CrcCatchUpInterval, "tower-crc-catch-up-interval", 3*time.Second, "tower resource change event watch catch up polling interval")
+	flagset.IntVar(&Config.Tower.CrcLimit, "tower-crc-limit", 500, "tower resource change event watch polling limit")
 }
