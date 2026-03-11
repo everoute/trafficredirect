@@ -4,11 +4,11 @@ go 1.20
 
 require (
 	github.com/agiledragon/gomonkey/v2 v2.13.0
-	github.com/everoute/graphc v0.0.0-20260204064853-6fc3d0a771ab
+	github.com/everoute/graphc v0.0.0-20260311060513-4046a92a8786
 	github.com/go-logr/logr v1.4.1
 	github.com/onsi/ginkgo/v2 v2.15.0
 	github.com/onsi/gomega v1.32.0
-	github.com/smartxworks/cloudtower-go-sdk/v2 v2.21.1-rc.1
+	github.com/smartxworks/cloudtower-go-sdk/v2 v2.22.1-rc.1
 	github.com/stretchr/testify v1.9.0
 	golang.org/x/sync v0.5.0
 	k8s.io/apimachinery v0.28.5
