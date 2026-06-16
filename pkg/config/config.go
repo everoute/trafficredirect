@@ -11,6 +11,7 @@ var Config T
 type T struct {
 	MetricsAddr string
 	HealthAddr  string
+	WebhookHost string
 	WebhookPort int
 
 	EnableLeaderElection    bool
@@ -40,6 +41,7 @@ func InitFlags(flagset *flag.FlagSet) {
 
 	flagset.StringVar(&Config.MetricsAddr, "metrics-addr", ":9605", "the metrics address")
 	flagset.StringVar(&Config.HealthAddr, "health-addr", ":9601", "the health address")
+	flagset.StringVar(&Config.WebhookHost, "webhook-host", "127.0.0.1", "the webhook host")
 	flagset.IntVar(&Config.WebhookPort, "webhook-port", 9603, "the webhook port")
 	flagset.BoolVar(&Config.EnableLeaderElection, "enable-leader-election", true, "enable leader election or not")
 	flagset.StringVar(&Config.LeaderElectionNamespace, "leader-election-namespace", "kube-system", "the namespace of leader election lease")

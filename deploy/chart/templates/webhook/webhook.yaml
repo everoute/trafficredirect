@@ -9,7 +9,7 @@ webhooks:
     clientConfig:
       # CaBundle must set as the ca for secret everoute-controller-tls.
       caBundle: {{ .Values.webhook.caBundle }}
-      url: https://127.0.0.1:{{ .Values.webhook.port }}/validate-tr-everoute-io-v1alpha1-rule
+      url: https://{{ .Values.webhook.host }}:{{ .Values.webhook.port }}/validate-tr-everoute-io-v1alpha1-rule
     failurePolicy: Fail
     name: rule.tr.io
     rules:
@@ -35,7 +35,7 @@ webhooks:
     clientConfig:
       # CaBundle must set as the ca for secret everoute-controller-tls.
       caBundle: {{ .Values.webhook.caBundle }}
-      url: https://127.0.0.1:{{ .Values.webhook.port }}/mutate-tr-everoute-io-v1alpha1-rule
+      url: https://{{ .Values.webhook.host }}:{{ .Values.webhook.port }}/mutate-tr-everoute-io-v1alpha1-rule
     failurePolicy: Fail
     name: rule.tr.io
     rules:
