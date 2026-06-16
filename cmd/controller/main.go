@@ -41,6 +41,7 @@ func main() {
 		LeaderElectionNamespace: config.Config.LeaderElectionNamespace,
 		LeaderElectionID:        config.Config.LeaderElectionName,
 		WebhookServer: webhook.NewServer(webhook.Options{
+			Host:    config.Config.WebhookHost,
 			Port:    config.Config.WebhookPort,
 			CertDir: constants.WebhookCertPath,
 			TLSOpts: []func(*tls.Config){
