@@ -20,7 +20,7 @@ func NewCRCWatch(resourceTypes []datamodel.ResourceType) (*crcwatch.Watch, error
 	}
 	return crcwatch.NewWatch(resTypes, crcwatch.SetUserInfo(userInfo),
 		crcwatch.SetAPIAuth(config.Config.Tower.APIUsername, config.Config.Tower.APIPassword),
-		crcwatch.SetHost(config.Config.Tower.Addr),
+		crcwatch.SetHost(config.Config.Tower.HTTPAddress()),
 		crcwatch.SetPollingInterval(config.Config.Tower.CrcInterval),
 		crcwatch.SetCatchUpPollingInterval(config.Config.Tower.CrcCatchUpInterval),
 		crcwatch.SetLimit(int32(config.Config.Tower.CrcLimit)))

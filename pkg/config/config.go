@@ -24,6 +24,8 @@ type T struct {
 type TowerOpts struct {
 	AllowInsecure      bool
 	Addr               string
+	HTTPSAddr          string
+	HTTPAddr           string
 	Username           string
 	Password           string
 	Source             string
@@ -32,6 +34,20 @@ type TowerOpts struct {
 	CrcInterval        time.Duration
 	CrcCatchUpInterval time.Duration
 	CrcLimit           int
+}
+
+func (o TowerOpts) HTTPSAddress() string {
+	if o.HTTPSAddr != "" {
+		return o.HTTPSAddr
+	}
+	return o.Addr
+}
+
+func (o TowerOpts) HTTPAddress() string {
+	if o.HTTPAddr != "" {
+		return o.HTTPAddr
+	}
+	return o.HTTPSAddress()
 }
 
 func InitFlags(flagset *flag.FlagSet) {
@@ -48,7 +64,9 @@ func InitFlags(flagset *flag.FlagSet) {
 	flagset.StringVar(&Config.LeaderElectionName, "leader-election-name", "tr-controller.leader-election.everoute.io", "the name of leader election lease")
 
 	flagset.BoolVar(&Config.Tower.AllowInsecure, "tower-allow-insecure", true, "tower allow-insecure for authenticate")
-	flagset.StringVar(&Config.Tower.Addr, "tower-addr", "", "tower api address host:port")
+	flagset.StringVar(&Config.Tower.Addr, "tower-addr", "", "tower https api address host:port (deprecated, use --tower-https-addr)")
+	flagset.StringVar(&Config.Tower.HTTPSAddr, "tower-https-addr", "", "tower https api address host:port")
+	flagset.StringVar(&Config.Tower.HTTPAddr, "tower-http-addr", "", "tower http api address host:port")
 	flagset.StringVar(&Config.Tower.Username, "tower-username", os.Getenv("TOWER_USERNAME"), "tower username for authenticate")
 	flagset.StringVar(&Config.Tower.Password, "tower-password", os.Getenv("TOWER_PASSWORD"), "tower user password for authenticate")
 	flagset.StringVar(&Config.Tower.Source, "tower-source", os.Getenv("TOWER_USERSOURCE"), "tower user source for authenticate")

@@ -20,7 +20,7 @@ type Client struct {
 
 func NewClient() *Client {
 	cli := &graphcclient.Client{
-		URL: "https://" + config.Config.Tower.Addr + "/api",
+		URL: "https://" + config.Config.Tower.HTTPSAddress() + "/api",
 		UserInfo: &graphcclient.UserInfo{
 			Username: config.Config.Tower.Username,
 			Password: config.Config.Tower.Password,
