@@ -24,6 +24,7 @@ type T struct {
 type TowerOpts struct {
 	AllowInsecure      bool
 	Addr               string
+	Scheme             string
 	Username           string
 	Password           string
 	Source             string
@@ -49,6 +50,7 @@ func InitFlags(flagset *flag.FlagSet) {
 
 	flagset.BoolVar(&Config.Tower.AllowInsecure, "tower-allow-insecure", true, "tower allow-insecure for authenticate")
 	flagset.StringVar(&Config.Tower.Addr, "tower-addr", "", "tower api address host:port")
+	flagset.StringVar(&Config.Tower.Scheme, "tower-scheme", "https", "tower api scheme")
 	flagset.StringVar(&Config.Tower.Username, "tower-username", os.Getenv("TOWER_USERNAME"), "tower username for authenticate")
 	flagset.StringVar(&Config.Tower.Password, "tower-password", os.Getenv("TOWER_PASSWORD"), "tower user password for authenticate")
 	flagset.StringVar(&Config.Tower.Source, "tower-source", os.Getenv("TOWER_USERSOURCE"), "tower user source for authenticate")
