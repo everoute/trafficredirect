@@ -50,6 +50,20 @@ func (o TowerOpts) HTTPAddress() string {
 	return o.HTTPSAddress()
 }
 
+func (o TowerOpts) CRCAddress() string {
+	if o.HTTPAddr != "" {
+		return o.HTTPAddr
+	}
+	return o.HTTPSAddress()
+}
+
+func (o TowerOpts) CRCScheme() string {
+	if o.HTTPAddr != "" {
+		return "http"
+	}
+	return "https"
+}
+
 func InitFlags(flagset *flag.FlagSet) {
 	if flagset == nil {
 		flagset = flag.CommandLine
