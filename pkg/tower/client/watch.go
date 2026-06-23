@@ -18,6 +18,7 @@ func NewCRCWatch(resourceTypes []datamodel.ResourceType) (*crcwatch.Watch, error
 	for _, t := range resourceTypes {
 		resTypes = append(resTypes, string(t))
 	}
+
 	return crcwatch.NewWatch(resTypes, crcwatch.SetUserInfo(userInfo),
 		crcwatch.SetAPIAuth(config.Config.Tower.APIUsername, config.Config.Tower.APIPassword),
 		crcwatch.SetHost(config.Config.Tower.Addr),
@@ -25,5 +26,5 @@ func NewCRCWatch(resourceTypes []datamodel.ResourceType) (*crcwatch.Watch, error
 		crcwatch.SetAllowInsecure(config.Config.Tower.AllowInsecure),
 		crcwatch.SetPollingInterval(config.Config.Tower.CrcInterval),
 		crcwatch.SetCatchUpPollingInterval(config.Config.Tower.CrcCatchUpInterval),
-		crcwatch.SetLimit(int32(config.Config.Tower.CrcLimit)))
+		crcwatch.SetLimit(config.Config.Tower.CrcLimit))
 }

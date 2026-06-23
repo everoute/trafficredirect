@@ -65,4 +65,7 @@ func TestNewCRCWatchConfiguresSchemeAndInsecure(t *testing.T) {
 	if !gotOptions.AllowInsecure {
 		t.Fatal("AllowInsecure = false, want true")
 	}
+	if gotOptions.Limit != 500 {
+		t.Fatalf("Limit = %d, want %d", gotOptions.Limit, 500)
+	}
 }
